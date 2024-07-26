@@ -1,6 +1,6 @@
 
 public abstract class Conta implements IConta {
-	
+
 	private static final int AGENCIA_PADRAO = 1;
 	private static int SEQUENCIAL = 1;
 
@@ -13,7 +13,8 @@ public abstract class Conta implements IConta {
 		this.agencia = Conta.AGENCIA_PADRAO;
 		this.numero = SEQUENCIAL++;
 		this.cliente = cliente;
-	}
+		this.cliente.getTipo();
+	}	
 
 	@Override
 	public void sacar(double valor) {
@@ -44,9 +45,20 @@ public abstract class Conta implements IConta {
 	}
 
 	protected void imprimirInfosComuns() {
-		System.out.println(String.format("Titular: %s", this.cliente.getNome()));
-		System.out.println(String.format("Agencia: %d", this.agencia));
-		System.out.println(String.format("Numero: %d", this.numero));
-		System.out.println(String.format("Saldo: %.2f", this.saldo));
+		if (this.cliente.getTipo().equals("pf")) {
+			System.out.println(String.format("Titular: %s", this.cliente.getNome()));
+			System.out.println(String.format("Tipo Pessoa: %s", this.cliente.getTipo()));
+			System.out.println(String.format("CPF: %s", this.cliente.getCpf()));
+			System.out.println(String.format("Agencia: %d", this.agencia));
+			System.out.println(String.format("Numero: %d", this.numero));
+			System.out.println(String.format("Saldo: %.2f", this.saldo));
+		}else{
+			System.out.println(String.format("Titular: %s", this.cliente.getNome()));
+			System.out.println(String.format("Tipo Pessoa: %s", this.cliente.getTipo()));
+			System.out.println(String.format("CNPJ: %s", this.cliente.getCnpj()));
+			System.out.println(String.format("Agencia: %d", this.agencia));
+			System.out.println(String.format("Numero: %d", this.numero));
+			System.out.println(String.format("Saldo: %.2f", this.saldo));
+		}
 	}
 }
